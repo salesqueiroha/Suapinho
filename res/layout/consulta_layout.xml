@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewP"
+        style="@style/textoV"
+        android:text="@string/processo" >
+    </TextView>
+
+    <EditText
+        android:id="@+id/editText1"
+        style="@style/texto" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/textViewC"
+        style="@style/textoV"
+        android:text="@string/cpf_consulta" >
+    </TextView>
+
+    <EditText
+        android:id="@+id/editText2"
+        style="@style/texto" >
+    </EditText>
+
+    <ImageView
+        android:id="@+id/imageCaptcha"
+        android:layout_width="290dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip" />
+
+    <EditText
+        android:id="@+id/editText3"
+        style="@style/texto" >
+    </EditText>
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/botao"
+        android:onClick="consultaDeProcessos"
+        android:text="@string/b2" />
+
+</LinearLayout>
