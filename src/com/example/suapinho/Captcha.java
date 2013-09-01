@@ -8,6 +8,7 @@ import java.net.URL;
 
 import com.example.entidades.Processo;
 import com.example.entidades.ProcessoBd;
+import com.example.exceptions.DadosInvalidosException;
 import com.example.gerenciador.Gerenciador;
 
 import android.app.Activity;
@@ -26,37 +27,36 @@ public class Captcha extends Activity {
 	private String url = "https://www.google.com/recaptcha/api/image?c=";
 	private ProcessoBd processoBd;
 	private Processo processo;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.captcha_layout);
 		captcha();
-		//recebe o objeto
+		// recebe o objeto
 		this.processoBd = (ProcessoBd) getIntent().getSerializableExtra(
 				"processoEnviarCaptcha");
-		
-		
+
 	}
+
 	public void voltarHome(View view) {
 		Intent i = new Intent();
 		i.setClass(this, MainActivity.class);
 		startActivity(i);
 	}
-	
-	
+
 	public void captcha() {
 		this.imaView = (ImageView) findViewById(R.id.imageCaptchaNova);
 		this.tempCapt = gerarCapatcha();
 		loadImageFromURL(this.url + this.tempCapt, this.imaView);
 
 	}
-	
+
 	public String gerarCapatcha() {
 
 		return gerenciador.gerar();
 	}
-	
+
 	public boolean loadImageFromURL(String fileUrl, ImageView iv) {
 		try {
 
@@ -79,34 +79,39 @@ public class Captcha extends Activity {
 
 		return false;
 	}
-	
+
 	public void consultaDeProcessos(View view) throws IOException {
 		Processo processoEnviarBanco = new Processo();
 		Intent itent = new Intent();
-		
+
 		EditText idLetrasTemp = ((EditText) findViewById(R.id.editText4));
 
 		// enviando o objeto para outra activy
 
-		processoEnviarBanco = consultarProcessoController(idLetrasTemp.getText()
-				.toString(), this.processoBd.getNumroProcesso(), this.processoBd.getCpf());
+			
+		processoEnviarBanco = consultarProcessoController(idLetrasTemp
+				.getText().toString(), this.processoBd.getNumroProcesso(),
+				this.processoBd.getCpf());
 
-		Log.i(processoEnviarBanco.getNumero(),"NUMERO DO PROCESSO!!!");
-		Log.i(processoEnviarBanco.getNumeroDocumento(),"NUMERO DO CPF!!!");
-		Log.i(processoEnviarBanco.getAssunto(),"TITULO !!!");
-		
+		Log.i(processoEnviarBanco.getNumero(), "NUMERO DO PROCESSO!!!");
+		Log.i(processoEnviarBanco.getNumeroDocumento(), "NUMERO DO CPF!!!");
+		Log.i(processoEnviarBanco.getAssunto(), "TITULO !!!");
+
 		itent.putExtra("processoEnviarBanco", processoEnviarBanco);
+
 		itent.setClass(this, Resultado.class);
+
 		startActivity(itent);
-		
+
 	}
-	
-	
+
 	public Processo consultarProcessoController(String idLetras,
 			String processo, String cpf) throws IOException {
 
 		return gerenciador.consultarProcesso(this.tempCapt, idLetras, processo,
 				cpf);
 	}
+	
+	
 
 }

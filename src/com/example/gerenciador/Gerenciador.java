@@ -13,18 +13,19 @@ import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import android.R.integer;
 import android.provider.OpenableColumns;
 import android.util.Log;
 
 import com.example.entidades.Processo;
 import com.example.entidades.Tramite;
+import com.example.exceptions.DadosInvalidosException;
 
 public class Gerenciador {
 
 	private String nomeBanco = "bancoSuapinho";
 	private SQLiteDatabase dbSuapinho = null;
+
 	public String gerar() {
 		URL url;
 		String temp = "";
@@ -68,7 +69,8 @@ public class Gerenciador {
 	}
 
 	public Processo consultarProcesso(String tempCapt, String idLetras,
-			String processo, String cpf) throws IOException {
+			String processo, String cpf) throws IOException,
+			DadosInvalidosException {
 
 		URL url;
 		HttpURLConnection conection;
@@ -127,10 +129,10 @@ public class Gerenciador {
 
 			processoR = convertStringProcesso(br);
 
-			Log.i("","fim da execucao, processo !!!");
+			Log.i("", "fim da execucao, processo !!!");
 
-		} catch (IOException e) {
-
+		} catch (DadosInvalidosException e) {
+			System.err.println(e.getMessage());
 		} finally {
 			conection.disconnect();
 		}
@@ -152,7 +154,9 @@ public class Gerenciador {
 
 		int cont = 0;
 
-		while (null != ((s = br.readLine()))) {
+		while (null != ((s = br.readLine())))
+			throw new DadosInvalidosException();
+		{
 			cont++;
 
 			if (cont >= 160 && cont < 190) {
@@ -206,8 +210,12 @@ public class Gerenciador {
 					if (tabela == true && !s.trim().equals("")
 							&& !s.trim().equals("<tr>")) {
 						if (s.contains("class=\"processo-resultado\"")) {
-							//processoResultado.setSituacao(s.substring(s.indexOf("<td colspan=\"6\" class=\"processo-resultado\">") + 40,s.indexOf("</td>")));
-							processoResultado.setAcoes(s.substring(s.indexOf("<td colspan=\"6\" class=\"processo-resultado\">") + 43, s.indexOf("</td>")));
+							// processoResultado.setSituacao(s.substring(s.indexOf("<td colspan=\"6\" class=\"processo-resultado\">")
+							// + 40,s.indexOf("</td>")));
+							processoResultado
+									.setAcoes(s.substring(
+											s.indexOf("<td colspan=\"6\" class=\"processo-resultado\">") + 43,
+											s.indexOf("</td>")));
 							contadorTramites = 10;
 						}
 						switch (contadorTramites) {
@@ -253,15 +261,14 @@ public class Gerenciador {
 		return processoResultado;
 	}
 
-	public void criaBanco(){
+	public void criaBanco() {
 		try {
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+
 	public void buscarProcesso() {
 
 	}

@@ -1,7 +1,10 @@
 package com.example.suapinho;
 
+import java.io.IOException;
+
 import com.example.entidades.Processo;
 import com.example.entidades.ProcessoBd;
+import com.example.exceptions.DadosInvalidosException;
 import com.example.gerenciador.CursoAdapter;
 import com.example.gerenciador.DbAdapter;
 
@@ -20,45 +23,63 @@ public class Resultado extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resultado_consulta_layout);
+		try {
 
-		this.dbAdapter = new DbAdapter(getApplicationContext());
-		this.dbAdapter.open();
-		// recebendo objeto vindo da consulta via URL
-		this.processo = (Processo) getIntent().getSerializableExtra(
-				"processoEnviar");
-		// recebendo objeto vindo da consulta do banco
-		this.processoBanco = (Processo) getIntent().getSerializableExtra(
-				"processoEnviarBanco");
+			this.dbAdapter = new DbAdapter(getApplicationContext());
 
-		if (this.processo != null) {
-			listarDadosProcessoNovo();
-		} else if (this.processoBanco != null) {
-			listarDadosProcessoBanco();
-		}
+			this.dbAdapter.open();
 
-		// verifica se a consulta retornou um objeto valido
-		if (this.processo != null) {
-			Log.i("Exibindo lista de dados", "testenado insercao!!!");
+			// recebendo objeto vindo da consulta via URL
+			this.processo = (Processo) getIntent().getSerializableExtra(
+					"processoEnviar");
+			// recebendo objeto vindo da consulta do banco
 
-			// consulta na base local a existencia do processo, caso exista o
-			// sistema nao salva
-			if (this.dbAdapter.verificaProcesso(this.processo.getNumero())) {
-				ProcessoBd processoBd = new ProcessoBd();
-				processoBd.setNumroProcesso(this.processo.getNumero());
-				processoBd.setTitulo(this.processo.getAssunto());
-				processoBd.setData(this.processo.getDataCadastro());
-				processoBd.setCpf(this.processo.getNumeroDocumento());
+			this.processoBanco = (Processo) getIntent().getSerializableExtra(
+					"processoEnviarBanco");
 
-				salvarProcesso(processoBd);
-				Log.i("Exibindo lista de dados",
-						"inser'cao realizado com sucesso!!!");
-			} else {
-				Log.i("ESSE PROCESSO NAO FOI SALVO",
-						"processo já existe na lista!!!");
+			if (this.processo != null)
+				throw new DadosInvalidosException();
+			{
+				listarDadosProcessoNovo();
+			}
+			if (this.processoBanco != null)
+				throw new DadosInvalidosException();
+			{
+				listarDadosProcessoBanco();
 			}
 
-			this.dbAdapter.close();
+			// verifica se a consulta retornou um objeto valido
+			if (this.processo != null) {
+				Log.i("Exibindo lista de dados", "testenado insercao!!!");
+
+				// consulta na base local a existencia do processo, caso exista
+				// o
+				// sistema nao salva
+				if (this.dbAdapter.verificaProcesso(this.processo.getNumero())) {
+					ProcessoBd processoBd = new ProcessoBd();
+					processoBd.setNumroProcesso(this.processo.getNumero());
+					processoBd.setTitulo(this.processo.getAssunto());
+					processoBd.setData(this.processo.getDataCadastro());
+					processoBd.setCpf(this.processo.getNumeroDocumento());
+
+					salvarProcesso(processoBd);
+					Log.i("Exibindo lista de dados",
+							"inser'cao realizado com sucesso!!!");
+				} else {
+					Log.i("ESSE PROCESSO NAO FOI SALVO",
+							"processo já existe na lista!!!");
+				}
+
+				this.dbAdapter.close();
+			}
+
+		} catch (Exception e) {
+			System.err.println("dados nulos!!!");
 		}
+
+	}
+
+	public void inicializar() {
 
 	}
 

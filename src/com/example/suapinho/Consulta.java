@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.app.AlertDialog;
 
 public class Consulta extends Activity {
 	private Gerenciador gerenciador = new Gerenciador();
@@ -81,24 +82,33 @@ public class Consulta extends Activity {
 		EditText cpfTemp = ((EditText) findViewById(R.id.editText2));
 		EditText idLetrasTemp = ((EditText) findViewById(R.id.editText3));
 
-		// insercao de pontos e ifem no numero do processo
-		StringBuilder processoFormatado = new StringBuilder(processoTemp
-				.getText().toString());
-		processoFormatado.insert(5, ".");
-		processoFormatado.insert(12, ".");
-		processoFormatado.insert(17, "-");
+		// verificando os campos processo e cpf
+		if (verificacao(processoTemp) == false || verificacao(cpfTemp) == false) {
+			AlertDialog.Builder alertaCampos = new AlertDialog.Builder(this);
+			alertaCampos
+					.setMessage("Informe apenas numeros no campo Processo, porfavor!");
+			alertaCampos.show();
+			
+		} 
+		else {
+			
+			// insercao de pontos e ifem no numero do processo
+			StringBuilder processoFormatado = new StringBuilder(processoTemp
+					.getText().toString());
+			processoFormatado.insert(5, ".");
+			processoFormatado.insert(12, ".");
+			processoFormatado.insert(17, "-");
 
-		// enviando o objeto para outra activy
+			// enviando o objeto para outra activy
 
-		processoEnviar = consultarProcessoController(idLetrasTemp.getText()
-				.toString(), processoFormatado.toString(), cpfTemp.getText()
-				.toString());
-		processoEnviar.setNumeroDocumento( cpfTemp.getText()
-				.toString());
-
-		itent.putExtra("processoEnviar", processoEnviar);
-		itent.setClass(this, Resultado.class);
-		startActivity(itent);
+			processoEnviar = consultarProcessoController(idLetrasTemp.getText()
+					.toString(), processoFormatado.toString(), cpfTemp
+					.getText().toString());
+			processoEnviar.setNumeroDocumento(cpfTemp.getText().toString());
+			itent.putExtra("processoEnviar", processoEnviar);
+			itent.setClass(this, Resultado.class);
+			startActivity(itent);
+		}
 
 	}
 
@@ -107,6 +117,13 @@ public class Consulta extends Activity {
 
 		return gerenciador.consultarProcesso(this.tempCapt, idLetras, processo,
 				cpf);
+	}
+
+	public boolean verificacao(EditText editText) {
+
+		boolean verificacaoTexto = editText.toString().matches("[a-zA-Z\\s]+");
+
+		return verificacaoTexto;
 	}
 
 }
