@@ -1,11 +1,8 @@
 package com.example.suapinho;
 
 import java.io.BufferedReader;
-import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -83,15 +81,26 @@ public class Consulta extends Activity {
 		EditText idLetrasTemp = ((EditText) findViewById(R.id.editText3));
 
 		// verificando os campos processo e cpf
-		if (verificacao(processoTemp) == false || verificacao(cpfTemp) == false) {
+
+		
+		if ((!verificacao(processoTemp.getText().toString()))
+				|| (!verificacao(cpfTemp.getText().toString()))) {
 			AlertDialog.Builder alertaCampos = new AlertDialog.Builder(this);
 			alertaCampos
-					.setMessage("Informe apenas numeros no campo Processo, porfavor!");
+					.setMessage("Informe apenas números nos campos Processo e Cpf, porfavor!");
 			alertaCampos.show();
-			
-		} 
+
+		} else if ((!numeroDigitosProcesso(processoTemp.getText().toString()))
+				|| (!numeroDigitosCpf(cpfTemp.getText().toString()))) {
+			AlertDialog.Builder alertaCamposDigitos = new AlertDialog.Builder(this);
+			alertaCamposDigitos
+					.setMessage("O Processo requer 17 números e o Cpf 11 verifique, porfavor!");
+			alertaCamposDigitos.show();
+
+		}
+
 		else {
-			
+
 			// insercao de pontos e ifem no numero do processo
 			StringBuilder processoFormatado = new StringBuilder(processoTemp
 					.getText().toString());
@@ -119,11 +128,30 @@ public class Consulta extends Activity {
 				cpf);
 	}
 
-	public boolean verificacao(EditText editText) {
+	public static boolean verificacao(String editText) {
+		if (editText == null || editText.length() == 0)
+			return false;
 
-		boolean verificacaoTexto = editText.toString().matches("[a-zA-Z\\s]+");
+		for (int i = 0; i < editText.length(); i++) {
 
-		return verificacaoTexto;
+			// Se o digito for diferente de um digito, retorna falso.
+			if (!Character.isDigit(editText.toString().charAt(i)))
+				return false;
+		}
+		return true;
+
+	}
+
+	public static boolean numeroDigitosCpf(String editText) {
+		if (editText.length() < 11)
+			return false;
+		return true;
+	}
+
+	public static boolean numeroDigitosProcesso(String editText) {
+		if (editText.length() < 17)
+			return false;
+		return true;
 	}
 
 }

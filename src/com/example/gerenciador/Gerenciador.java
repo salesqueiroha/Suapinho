@@ -133,6 +133,7 @@ public class Gerenciador {
 
 		} catch (DadosInvalidosException e) {
 			System.err.println(e.getMessage());
+			
 		} finally {
 			conection.disconnect();
 		}
@@ -261,28 +262,39 @@ public class Gerenciador {
 		return processoResultado;
 	}
 
-	public void criaBanco() {
-		try {
 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-
-	public void buscarProcesso() {
-
-	}
-
-	public void listarProcesso() {
-
-	}
-
-	public void salvarProcesso() {
-
-	}
-
-	public void removerProcesso() {
-
-	}
+    public boolean verificaErroCpfCnpj(BufferedReader br) throws IOException {
+        String temp = "";
+        String s = "";
+        int cont = 0;
+        while (null != ((s = br.readLine()))) {
+            cont++;
+            if (cont == 169) {
+                temp = s.substring(s.indexOf("<ul class=\"errorlist\"><li>") + 26, s.indexOf("<ul class=\"errorlist\"><li>") + 43).trim();
+            }
+        }
+        if (temp.equals("CPF/CNPJ inválido")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public boolean verificaErroCapctha(BufferedReader br) throws IOException {
+        String temp = "";
+        String s = "";
+        int cont = 0;
+        while (null != ((s = br.readLine()))) {
+            cont++;
+            if (cont == 169) {
+                temp = s.substring(s.indexOf("<ul class=\"errorlist\"><li>") + 26, s.indexOf("<ul class=\"errorlist\"><li>") + 49).trim();
+            }
+        }
+        if (temp.equals("Informe um valor válido")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }
