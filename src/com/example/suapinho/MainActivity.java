@@ -40,9 +40,9 @@ public class MainActivity extends Activity {
 	}
 
 	
-	public void consultarLista(View view) {
+	public void menu(View view) {
 		Intent i = new Intent();
-		i.setClass(this, NovaConsulta.class);
+		i.setClass(this, MenuSuapinho.class);
 		startActivity(i);
 	}
 

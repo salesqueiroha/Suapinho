@@ -8,7 +8,6 @@ import java.net.URL;
 
 import com.example.entidades.Processo;
 import com.example.entidades.ProcessoBd;
-import com.example.exceptions.DadosInvalidosException;
 import com.example.gerenciador.Gerenciador;
 
 import android.app.Activity;

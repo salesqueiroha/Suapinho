@@ -23,7 +23,7 @@ public class Resultado extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resultado_consulta_layout);
-		try {
+		
 
 			this.dbAdapter = new DbAdapter(getApplicationContext());
 
@@ -38,12 +38,12 @@ public class Resultado extends Activity {
 					"processoEnviarBanco");
 
 			if (this.processo != null)
-				throw new DadosInvalidosException();
+				
 			{
 				listarDadosProcessoNovo();
 			}
 			if (this.processoBanco != null)
-				throw new DadosInvalidosException();
+				
 			{
 				listarDadosProcessoBanco();
 			}
@@ -73,9 +73,6 @@ public class Resultado extends Activity {
 				this.dbAdapter.close();
 			}
 
-		} catch (Exception e) {
-			System.err.println("dados nulos!!!");
-		}
 
 	}
 

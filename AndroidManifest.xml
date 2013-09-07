@@ -35,6 +35,10 @@
         </activity>
         <activity android:name="com.example.suapinho.Resultado" >
         </activity>
+        <activity android:name="com.example.suapinho.MenuSuapinho" >
+        </activity>
+        <activity android:name="com.example.suapinho.RemoverProcesso" >
+        </activity>
     </application>
 
 </manifest>

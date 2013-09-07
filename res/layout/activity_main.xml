@@ -25,10 +25,9 @@
         <Button
             android:id="@+id/button1"
             style="@style/botao"
-            android:onClick="consultarLista"
+            android:onClick="menu"
             android:text="@string/b0" />
-        
-                    
+ 
     </LinearLayout>
 
 </RelativeLayout>

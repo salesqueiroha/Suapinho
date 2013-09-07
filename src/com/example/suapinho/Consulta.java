@@ -81,7 +81,8 @@ public class Consulta extends Activity {
 		EditText idLetrasTemp = ((EditText) findViewById(R.id.editText3));
 
 		// verificando os campos processo e cpf
-
+		Log.i("1 passo",
+				"entrou aqui antes dos ifs");
 		
 		if ((!verificacao(processoTemp.getText().toString()))
 				|| (!verificacao(cpfTemp.getText().toString()))) {
@@ -89,18 +90,19 @@ public class Consulta extends Activity {
 			alertaCampos
 					.setMessage("Informe apenas números nos campos Processo e Cpf, porfavor!");
 			alertaCampos.show();
-
+			Log.i("2 passo",
+					"entrou aqui primeiro if");
 		} else if ((!numeroDigitosProcesso(processoTemp.getText().toString()))
 				|| (!numeroDigitosCpf(cpfTemp.getText().toString()))) {
 			AlertDialog.Builder alertaCamposDigitos = new AlertDialog.Builder(this);
 			alertaCamposDigitos
 					.setMessage("O Processo requer 17 números e o Cpf 11 verifique, porfavor!");
 			alertaCamposDigitos.show();
-
+			Log.i("3 passo",
+					"entrou aqui segundo if");
 		}
 
-		else {
-
+				
 			// insercao de pontos e ifem no numero do processo
 			StringBuilder processoFormatado = new StringBuilder(processoTemp
 					.getText().toString());
@@ -117,7 +119,9 @@ public class Consulta extends Activity {
 			itent.putExtra("processoEnviar", processoEnviar);
 			itent.setClass(this, Resultado.class);
 			startActivity(itent);
-		}
+		
+		
+		
 
 	}
 

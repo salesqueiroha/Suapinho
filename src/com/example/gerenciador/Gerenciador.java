@@ -19,7 +19,7 @@ import android.util.Log;
 
 import com.example.entidades.Processo;
 import com.example.entidades.Tramite;
-import com.example.exceptions.DadosInvalidosException;
+
 
 public class Gerenciador {
 
@@ -69,8 +69,8 @@ public class Gerenciador {
 	}
 
 	public Processo consultarProcesso(String tempCapt, String idLetras,
-			String processo, String cpf) throws IOException,
-			DadosInvalidosException {
+			String processo, String cpf) throws IOException
+			 {
 
 		URL url;
 		HttpURLConnection conection;
@@ -131,7 +131,7 @@ public class Gerenciador {
 
 			Log.i("", "fim da execucao, processo !!!");
 
-		} catch (DadosInvalidosException e) {
+		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			
 		} finally {
@@ -156,7 +156,7 @@ public class Gerenciador {
 		int cont = 0;
 
 		while (null != ((s = br.readLine())))
-			throw new DadosInvalidosException();
+			
 		{
 			cont++;
 
