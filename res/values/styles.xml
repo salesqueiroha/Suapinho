@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -23,8 +23,36 @@
         <item name="android:layout_marginLeft">15dip</item>
         <item name="android:layout_marginRight">15dip</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#51A351</item>
+        
+    </style>
+    
+     <style name="botaoMenu">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dip</item>
+        <item name="android:layout_marginRight">15dip</item>
+        <item name="android:layout_marginTop">20dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#51A351</item>
+        
     </style>
 
+    <style name="layout">
+        <item name="android:background">#999999</item>
+        <item name="android:layout_width">fill_parent</item>
+         <item name="android:layout_height">fill_parent</item>
+    </style>
+    
+    <style name="layoutConsulta">
+        <item name="android:background">#555555</item>
+        <item name="android:layout_width">fill_parent</item>
+         <item name="android:layout_height">fill_parent</item>
+    </style>
+    
+    
     <style name="texto">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -36,9 +64,19 @@
     <style name="textoV">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">10dip</item>
-        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:layout_marginTop">15dip</item>
+        <item name="android:layout_marginRight">15dip</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    
+    <style name="textoR">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dip</item>
+        <item name="android:layout_marginRight">15dip</item>
+        <item name="android:textSize">13sp</item>
+       <item name="android:textColor">#FFFFFF</item>
     </style>
 
 </resources>

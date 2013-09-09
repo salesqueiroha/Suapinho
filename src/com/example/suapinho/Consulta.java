@@ -100,9 +100,9 @@ public class Consulta extends Activity {
 			alertaCamposDigitos.show();
 			Log.i("3 passo",
 					"entrou aqui segundo if");
-		}
-
-				
+		} else{
+			
+			
 			// insercao de pontos e ifem no numero do processo
 			StringBuilder processoFormatado = new StringBuilder(processoTemp
 					.getText().toString());
@@ -119,6 +119,10 @@ public class Consulta extends Activity {
 			itent.putExtra("processoEnviar", processoEnviar);
 			itent.setClass(this, Resultado.class);
 			startActivity(itent);
+			
+		}
+
+		
 		
 		
 		

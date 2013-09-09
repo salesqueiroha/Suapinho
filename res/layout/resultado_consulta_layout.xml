@@ -3,20 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    style="@style/layout"
+    >
 
     <TextView
         android:id="@+id/textViewR"
         style="@style/textoV"
         android:text="@string/resultado" >
     </TextView>
+    
+    <TextView
+        android:id="@+id/textViewTitulo"
+        style="@style/textoR"
+        android:text="" >
+    </TextView>
+    
+       <TextView
+        android:id="@+id/textViewStatus"
+        style="@style/textoR"
+        android:text="" >
+    </TextView>
 
-    <ListView
+    <!--  ListView
         android:id="@+id/listView1"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         >
+        android:layout_height="236dp"
+        android:layout_marginTop="10dp" >
     </ListView>
+
+
+
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.29" >
+    </ExpandableListView-->
 
 </LinearLayout>

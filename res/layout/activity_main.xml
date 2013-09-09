@@ -7,24 +7,28 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity" 
+    style="@style/layout"
+    >
 
     <LinearLayout
         android:id="@+id/linha1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        
+        >
 
         <Button
             android:id="@+id/button2"
-            style="@style/botao"
+            style="@style/botaoMenu"
             android:onClick="consulta"
             android:text="@string/b1" />
 
         <Button
             android:id="@+id/button1"
-            style="@style/botao"
+            style="@style/botaoMenu"
             android:onClick="menu"
             android:text="@string/b0" />
  

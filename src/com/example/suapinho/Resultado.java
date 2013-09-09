@@ -2,6 +2,7 @@ package com.example.suapinho;
 
 import java.io.IOException;
 
+
 import com.example.entidades.Processo;
 import com.example.entidades.ProcessoBd;
 import com.example.exceptions.DadosInvalidosException;
@@ -11,8 +12,10 @@ import com.example.gerenciador.DbAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class Resultado extends Activity {
 	private DbAdapter dbAdapter;
@@ -24,60 +27,91 @@ public class Resultado extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resultado_consulta_layout);
 		
+		/*
+		 * public void clean(View view) { TextView resultado = ((TextView)
+		 * findViewById(R.id.textView1)); resultado.setText(""); this.numeroTemp
+		 * = null; this.resultadoFinal = null; }
+		 */
 
-			this.dbAdapter = new DbAdapter(getApplicationContext());
+		this.dbAdapter = new DbAdapter(getApplicationContext());
 
-			this.dbAdapter.open();
+		this.dbAdapter.open();
 
-			// recebendo objeto vindo da consulta via URL
-			this.processo = (Processo) getIntent().getSerializableExtra(
-					"processoEnviar");
-			// recebendo objeto vindo da consulta do banco
+		// recebendo objeto vindo da consulta via URL
+		this.processo = (Processo) getIntent().getSerializableExtra(
+				"processoEnviar");
+		// recebendo objeto vindo da consulta do banco
 
-			this.processoBanco = (Processo) getIntent().getSerializableExtra(
-					"processoEnviarBanco");
+		this.processoBanco = (Processo) getIntent().getSerializableExtra(
+				"processoEnviarBanco");
 
-			if (this.processo != null)
-				
-			{
-				listarDadosProcessoNovo();
+		if (this.processo != null)
+
+		{
+			// listarDadosProcessoNovo();
+			preencherCabProcesso();
+		}
+		if (this.processoBanco != null)
+
+		{
+			preencherCabProcessoDb();
+			// listarDadosProcessoBanco();
+		}
+		
+		
+		// verifica se a consulta retornou um objeto valido
+		if (this.processo != null) {
+			Log.i("Exibindo lista de dados", "testenado insercao!!!");
+
+			// consulta na base local a existencia do processo, caso exista
+			// o
+			// sistema nao salva
+			if (this.dbAdapter.verificaProcesso(this.processo.getNumero())) {
+				ProcessoBd processoBd = new ProcessoBd();
+				processoBd.setNumroProcesso(this.processo.getNumero());
+				processoBd.setTitulo(this.processo.getAssunto());
+				processoBd.setData(this.processo.getDataCadastro());
+				processoBd.setCpf(this.processo.getNumeroDocumento());
+
+				salvarProcesso(processoBd);
+				Log.i("Exibindo lista de dados",
+						"inser'cao realizado com sucesso!!!");
+			} else {
+				Log.i("ESSE PROCESSO NAO FOI SALVO",
+						"processo já existe na lista!!!");
 			}
-			if (this.processoBanco != null)
-				
-			{
-				listarDadosProcessoBanco();
-			}
 
-			// verifica se a consulta retornou um objeto valido
-			if (this.processo != null) {
-				Log.i("Exibindo lista de dados", "testenado insercao!!!");
-
-				// consulta na base local a existencia do processo, caso exista
-				// o
-				// sistema nao salva
-				if (this.dbAdapter.verificaProcesso(this.processo.getNumero())) {
-					ProcessoBd processoBd = new ProcessoBd();
-					processoBd.setNumroProcesso(this.processo.getNumero());
-					processoBd.setTitulo(this.processo.getAssunto());
-					processoBd.setData(this.processo.getDataCadastro());
-					processoBd.setCpf(this.processo.getNumeroDocumento());
-
-					salvarProcesso(processoBd);
-					Log.i("Exibindo lista de dados",
-							"inser'cao realizado com sucesso!!!");
-				} else {
-					Log.i("ESSE PROCESSO NAO FOI SALVO",
-							"processo já existe na lista!!!");
-				}
-
-				this.dbAdapter.close();
-			}
-
+			this.dbAdapter.close();
+		}
 
 	}
 
-	public void inicializar() {
-
+	public void preencherCabProcessoDb() {
+		
+		
+		TextView titulo = ((TextView)
+				 findViewById(R.id.textViewTitulo)); 
+		titulo.setText(this.processoBanco.getAssunto()); 
+		
+		TextView status = ((TextView)
+				 findViewById(R.id.textViewStatus)); 
+		status.setText(this.processoBanco.getSituacao()); 
+		
+				
+	}
+	
+public void preencherCabProcesso() {
+		
+		
+		TextView titulo = ((TextView)
+				 findViewById(R.id.textViewTitulo)); 
+		titulo.setText(this.processo.getAssunto()); 
+		
+		TextView status = ((TextView)
+				 findViewById(R.id.textViewStatus)); 
+		status.setText(this.processo.getSituacao()); 
+		
+				
 	}
 
 	public void listarDadosProcessoNovo() {
