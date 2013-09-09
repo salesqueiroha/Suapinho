@@ -29,7 +29,7 @@
         <Button
             android:id="@+id/button1"
             style="@style/botaoMenu"
-            android:onClick="menu"
+            android:onClick="novaConsulta"
             android:text="@string/b0" />
  
     </LinearLayout>

@@ -27,12 +27,7 @@ public class Resultado extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resultado_consulta_layout);
 		
-		/*
-		 * public void clean(View view) { TextView resultado = ((TextView)
-		 * findViewById(R.id.textView1)); resultado.setText(""); this.numeroTemp
-		 * = null; this.resultadoFinal = null; }
-		 */
-
+	
 		this.dbAdapter = new DbAdapter(getApplicationContext());
 
 		this.dbAdapter.open();

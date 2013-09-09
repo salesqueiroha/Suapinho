@@ -112,7 +112,7 @@ public class DbAdapter {
 	}
 
 	public boolean excluirProcesso(String idProcesso) {
-		return mDb.delete(TABELA_PROCESSO, COLUNA_ID + "=?",
+		return mDb.delete(TABELA_PROCESSO, COLUNA_NUMERO_PROCESSO + "=?",
 				new String[] { idProcesso }) > 0;
 
 	}

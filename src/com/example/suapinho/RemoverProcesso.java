@@ -6,6 +6,8 @@ import com.example.entidades.ProcessoBd;
 import com.example.gerenciador.DbAdapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,17 +59,42 @@ public class RemoverProcesso extends Activity {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Log.i(arg0.toString(), "esse é valor do arq0");
-				Log.i(arg1.toString(), "esse é valor do arq1");
-				Log.i(String.valueOf(arg2), "esse é valor do arq2");
-				Log.i(String.valueOf(arg3), "esse é valor do arq3");
+				confirmacao();
+				
 			}
 			
 		});
 
 	}
 	
-	public void removerProcesso(String idProcesso){
+	public void confirmacao(){
+	
+		AlertDialog.Builder mensagemConfirmacao =  new AlertDialog.Builder(this);
+		
+		mensagemConfirmacao.setTitle("-Excluir processo-");
+		mensagemConfirmacao.setMessage("Realmente deseja excluir o processo?");
+		mensagemConfirmacao.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+		  public void onClick(DialogInterface arg0, int arg1) {
+		 
+			  Log.i("confirmacao", "esse comando exclui  ");
+		  
+		  }});
+		mensagemConfirmacao.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		       
+		  public void onClick(DialogInterface arg0, int arg1) {
+		 
+			  Log.i("confirmacao", "esse comando cancela ");
+			  
+		  }});
+		 mensagemConfirmacao.show();
+	
+
+	
+	}
+	
+	public void excluirProcesso(String idProcesso){
+		
 		this.dBAdpater.excluirProcesso(idProcesso);
 	}
 	

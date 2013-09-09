@@ -1,8 +1,6 @@
 package com.example.entidades;
 
-import java.io.Serializable;
-
-public class ProcessoBd implements Serializable {
+public class ProcessoExibir {
 	private int id;
 	private String numroProcesso;
 	private String titulo;
@@ -51,8 +49,10 @@ public class ProcessoBd implements Serializable {
 
 	@Override
 	public String toString() {
-		return "id=" + id + " numroProcesso=" + numroProcesso + " titulo="
-				+ titulo + " data=" + data.substring(0, 10) + " cpf=" + cpf;
+		return titulo + "  " + data.substring(0, 10) ;
 	}
+
+	
+	// return titulo + "  " + data.substring(0, 10) ;
 
 }
