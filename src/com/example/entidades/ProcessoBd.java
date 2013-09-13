@@ -7,6 +7,7 @@ public class ProcessoBd implements Serializable {
 	private String numroProcesso;
 	private String titulo;
 	private String data;
+	private String situacao;
 	private String cpf;
 
 	public String getNumroProcesso() {
@@ -42,17 +43,27 @@ public class ProcessoBd implements Serializable {
 	}
 
 	public String getData() {
-		return data;
+		return data.substring(0, 10);
 	}
 
 	public void setData(String data) {
 		this.data = data;
 	}
+	
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
 
 	@Override
 	public String toString() {
-		return "id=" + id + " numroProcesso=" + numroProcesso + " titulo="
-				+ titulo + " data=" + data.substring(0, 10) + " cpf=" + cpf;
+		return "ProcessoBd [id=" + id + ", numroProcesso=" + numroProcesso
+				+ ", titulo=" + titulo + ", data=" + data.substring(0, 10) + ", situacao="
+				+ situacao + ", cpf=" + cpf + "]";
 	}
+
 
 }

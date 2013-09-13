@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -44,7 +44,22 @@
         <item name="android:shadowDy">5</item>
         <item name="android:shadowRadius">10</item>
         <item name="android:padding">13dp</item>
-        
+    </style>
+
+    <style name="botaoMenuConsulta">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">.50</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#51A351</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">10</item>
+        <item name="android:padding">13dp</item>
     </style>
 
     <style name="layout">
@@ -80,8 +95,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">15dip</item>
         <item name="android:layout_marginRight">15dip</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">#FFFFFF</item>
+             
     </style>
 
 </resources>

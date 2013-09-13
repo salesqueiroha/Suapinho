@@ -21,12 +21,13 @@ public class DbAdapter {
 	public static final String COLUNA_TITULO = "TITULO";
 	public static final String COLUNA_NUMERO_PROCESSO = "NUMERO_PROCESSO";
 	public static final String COLUNA_DATA = "DATA";
-	public static final String COLUNA_CPF = "CPF";
+	public static final String COLUNA_SITUACAO = "SITUACAO";
+		public static final String COLUNA_CPF = "CPF";
 
 	private static final String PROCESSO_CREATE_TABLE = "CREATE TABLE "
 			+ TABELA_PROCESSO + "  (" + COLUNA_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUNA_TITULO + " TEXT NOT NULL, "
-			+ COLUNA_NUMERO_PROCESSO + " TEXT NOT NULL," + COLUNA_DATA + " TEXT NOT NULL,"+ COLUNA_CPF
+			+ COLUNA_NUMERO_PROCESSO + " TEXT NOT NULL," + COLUNA_DATA + " TEXT NOT NULL," + COLUNA_SITUACAO + " TEXT NOT NULL,"+ COLUNA_CPF
 			+ " TEXT NOT NULL);";
 
 	private static final String TAG = "DbAdapter";
@@ -34,7 +35,7 @@ public class DbAdapter {
 	private SQLiteDatabase mDb;
 
 	private static final String DB_NAME = "suapinhoDb";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 1;
 
 	private final Context mCtx;
 
@@ -59,17 +60,18 @@ public class DbAdapter {
 		values.put(COLUNA_TITULO, processoDb.getTitulo());
 		values.put(COLUNA_NUMERO_PROCESSO, processoDb.getNumroProcesso());
 		values.put(COLUNA_DATA, processoDb.getData());
+		values.put(COLUNA_SITUACAO, processoDb.getSituacao());
 		values.put(COLUNA_CPF, processoDb.getCpf());
 
 		 mDb.insert(TABELA_PROCESSO, null, values);
 		mDb.close();
 	}
 
-	public Cursor consultarCategoria(long idCategoria) throws SQLException {
+	public Cursor consultarCategoria(long idProcesso) throws SQLException {
 
 		Cursor mCursor = mDb.query(true, TABELA_PROCESSO,
 				new String[] { COLUNA_NUMERO_PROCESSO }, COLUNA_NUMERO_PROCESSO
-						+ "=?", new String[] { String.valueOf(idCategoria) },
+						+ "=?", new String[] { String.valueOf(idProcesso) },
 				null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
@@ -91,7 +93,8 @@ public class DbAdapter {
 			processoDb.setTitulo(c.getString(1));
 			processoDb.setNumroProcesso(c.getString(2));
 			processoDb.setData(c.getString(3));
-			processoDb.setCpf(c.getString(4));
+			processoDb.setSituacao(c.getString(4));
+			processoDb.setCpf(c.getString(5));
 			processosDb.add(processoDb);
 		}
 
@@ -117,6 +120,14 @@ public class DbAdapter {
 
 	}
 
+	public boolean atualizarProcesso(ProcessoBd processoDb) {
+		ContentValues values = new ContentValues();
+		values.put(COLUNA_SITUACAO, processoDb.getSituacao());
+	 		return mDb.update(TABELA_PROCESSO, values, COLUNA_NUMERO_PROCESSO + "=?",
+				new String[] { String.valueOf(processoDb.getNumroProcesso()) }) > 0;
+	}
+	
+	
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
 		DatabaseHelper(Context context) {

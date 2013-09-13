@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.example.entidades.Processo;
 import com.example.entidades.ProcessoBd;
+import com.example.entidades.Tramite;
 import com.example.exceptions.DadosInvalidosException;
 import com.example.gerenciador.CursoAdapter;
 import com.example.gerenciador.DbAdapter;
@@ -49,6 +50,14 @@ public class Resultado extends Activity {
 		if (this.processoBanco != null)
 
 		{
+		for(Tramite t: this.processoBanco.getTramites() ){
+			
+			Log.i("Imprimindo tramites", t.getDestino());
+			Log.i("Imprimindo tramites", t.getEnviadoEm());
+			Log.i("Imprimindo tramites", t.getOrigem());
+			Log.i("Imprimindo tramites", t.getRecebidoEm());
+			
+		}
 			preencherCabProcessoDb();
 			// listarDadosProcessoBanco();
 		}
@@ -67,6 +76,7 @@ public class Resultado extends Activity {
 				processoBd.setTitulo(this.processo.getAssunto());
 				processoBd.setData(this.processo.getDataCadastro());
 				processoBd.setCpf(this.processo.getNumeroDocumento());
+				processoBd.setSituacao(this.processo.getSituacao());
 
 				salvarProcesso(processoBd);
 				Log.i("Exibindo lista de dados",

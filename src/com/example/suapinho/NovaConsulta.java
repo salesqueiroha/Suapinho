@@ -59,7 +59,8 @@ public class NovaConsulta extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				ProcessoBd processoEnviar = temp.get(arg2);
-				operacao(processoEnviar, arg1);
+				enviarProcesso(processoEnviar, arg1);
+				//operacao(processoEnviar, arg1);
 				
 			}
 
@@ -70,11 +71,11 @@ public class NovaConsulta extends Activity {
 	public void enviarProcesso(ProcessoBd processoBd, View arg1) {
 		captcha(arg1);
 		Intent itent = new Intent();
-		itent.putExtra("processoEnviarCaptcha", processoBd);
-		itent.setClass(this, Captcha.class);
+		itent.putExtra("processoEnviarVisualizar", processoBd);
+		itent.setClass(this, MenuSuapinho.class);
 		startActivity(itent);
 	}
-
+	
 	public void captcha(View view) {
 		Intent i = new Intent();
 		i.setClass(this, Captcha.class);
@@ -146,6 +147,10 @@ public class NovaConsulta extends Activity {
 		this.dBAdpater.open();
 		this.dBAdpater.excluirProcesso(idProcesso);
 		this.dBAdpater.close();
+		Intent itent = new Intent();
+		itent.setClass(this, NovaConsulta.class);
+		startActivity(itent);
+		
 	}
 	
 	public List<ProcessoExibir> converteProcessoDb(List<ProcessoBd> processosBd){

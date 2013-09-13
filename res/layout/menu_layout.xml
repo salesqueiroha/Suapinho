@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    style="@style/layout"
-    >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linha10"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
         android:gravity="center"
         android:orientation="vertical" >
 
+        <TextView
+            android:id="@+id/textViewDbTitulo"
+            style="@style/textoR"
+            android:text="" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textViewDbNumero"
+            style="@style/textoR"
+            android:text="" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textViewDbData"
+            style="@style/textoR"
+            android:text="" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textViewDbStatus"
+            style="@style/textoR"
+            android:text="" >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linha15"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
         <Button
             android:id="@+id/button6"
-            style="@style/botaoMenu"
-            android:onClick="consultar"
+            style="@style/botaoMenuConsulta"
+            android:onClick="atualizar"
             android:text="@string/b6" />
 
         <Button
             android:id="@+id/button7"
-            style="@style/botaoMenu"
+            style="@style/botaoMenuConsulta"
             android:onClick="remover"
             android:text="@string/b7" />
     </LinearLayout>
